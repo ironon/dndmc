@@ -10,12 +10,3 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 
-@Mixin(GameMessageS2CPacket.class)
-public abstract class TextMixin {
-
-    @Inject(method = "content()Lnet/minecraft/text", at=@At("HEAD"))
-    public Text content() {
-        return new Te
-    }
-
-}

@@ -7,6 +7,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.BlockState;
+import net.minecraft.command.argument.RegistryEntryReferenceArgumentType;
+import net.minecraft.command.suggestion.SuggestionProviders;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -42,10 +44,11 @@ public class DNDMc implements ModInitializer {
 	public static boolean cycle = false;
 	public static int max_size = 25;
 	public static World b_world;
-	public static final EntityType<Shrunken> SHRUNKEN = Registry.register(
+	public static EntityType entityType = EntityType.Builder.create(Shrunken::new, SpawnGroup.MISC).dimensions(0.0F, 0.0F).maxTrackingRange(0).build();
+	public static final EntityType SHRUNKEN = Registry.register(
 			Registries.ENTITY_TYPE,
 			Identifier.of("minecraft", "shrunken"),
-			EntityType.Builder.create(Shrunken::new, SpawnGroup.MISC).dimensions(0.0F, 0.0F).maxTrackingRange(0).build()
+			entityType
 	);
 	public boolean isCovered(BlockPos pos, World world) {
 
@@ -143,7 +146,8 @@ public class DNDMc implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-//		FabricDefaultAttributeRegistry.register(SHRUNKEN, Shrunken.createMobAttributes());
+		//		FabricDefaultAttributeRegistry.register(SHRUNKEN, Shrunken.createMobAttributes());
+	
 		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("filld")
 				.then(CommandManager.argument("block_name", StringArgumentType.string())
 						.executes(context -> {
