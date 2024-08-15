@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"package": "dnd.craft.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"BlockDisplayEntityInvoker"
+	],
+	"server": [
+		"BlockDisplayEntityInvoker"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
